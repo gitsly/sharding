@@ -22,7 +22,7 @@ services:
       TERM: xterm
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mongo_cluster/data1:/data/db
+      - ./mongo_cluster/data1:/data/db
   mongors1n2:
     container_name: mongors1n2
     image: mongo
@@ -35,7 +35,7 @@ services:
       TERM: xterm
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mongo_cluster/data2:/data/db
+      - ./mongo_cluster/data2:/data/db
   mongors1n3:
     container_name: mongors1n3
     image: mongo
@@ -48,4 +48,5 @@ services:
       TERM: xterm
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mongo_cluster/data3:/data/db
+      - ./mongo_cluster/data3:/data/db
+
