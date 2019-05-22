@@ -5,3 +5,7 @@ rs.initiate( {
       { _id: 1, host: "replica2:27017" },
    ]
 })
+
+// After this you can query normally from secondaries.
+rs.slaveOk()
+
