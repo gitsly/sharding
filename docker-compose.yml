@@ -40,7 +40,10 @@
 # db version v4.0.8
 
 # Useful mongo shell commands within the docker instances
+################################################################################
 # db.isMaster() -> Returns useful information about an instance
+# rs.status() -> Check the state of the replica set members
+
 
 ################################################################################
 # Define Shards: Each shard contains a subset of the sharded data. Each shard can
@@ -95,6 +98,21 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./replication/data2:/data/db
+      - ./scripts:/scripts:ro
+  replica3:
+    container_name: replica3
+    image: mongo
+    command: mongod --replSet myReplicaSet --dbpath /data/db --port 27017
+    ports:
+      - 27037:27017
+    expose:
+      - "27017"
+    environment:
+      TERM: xterm
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./replication/data3:/data/db
+      - ./scripts:/scripts:ro
 
 # Observations, logging into a replica node with 'mongo' shell, clearly shows
 # the status of the node in the replica set e.g. promt for secondary replica in
