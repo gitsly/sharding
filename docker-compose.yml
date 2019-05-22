@@ -1,4 +1,8 @@
+# Sharding tutorial
 # https://dzone.com/articles/composing-a-sharded-mongodb-on-docker
+
+# mongo shell
+# https://flaviocopes.com/mongodb/
 
 # Shard: Each shard contains a subset of the sharded data. Each shard can be
 # deployed as a replica set.
@@ -8,7 +12,6 @@
 
 # Config servers: Config servers store metadata and configuration settings for
 # the cluster.
-
 
 
 #Mongod port defaults
@@ -32,11 +35,20 @@
 #      /    \  
 # [Shard]   [Shard]
 
+
+
 # db version v4.0.8
+
+# Useful mongo shell commands within the docker instances
+# db.isMaster() -> Returns useful information about an instance
 
 ################################################################################
 # Define Shards: Each shard contains a subset of the sharded data. Each shard can
 # be deployed as a replica set.
+
+# Note the
+# --replSet mongors1
+# 'mongors1' Would indicate the replicaSet (maintains one common set of the data)
 
 # We will build a replica set with these three nodes... 
 # A replica set is a group of mongod instances that maintain the same data set.
