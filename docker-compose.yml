@@ -53,9 +53,20 @@
 # We will build a replica set with these three nodes... 
 # A replica set is a group of mongod instances that maintain the same data set.
 ################################################################################
+
+# To initialize the repliace set, on only one instance do (from mongo shell):
+# rs.initiate( {
+#    _id : "rs0",
+#    members: [
+#       { _id: 0, host: "replica1:27017" },
+#       { _id: 1, host: "replica2:27017" },
+#    ]
+# })
+
 version: '2'
 services:
   replica1:
+    container_name: replica1
     image: mongo
     command: mongod --replSet myReplicaSet --dbpath /data/db --port 27017
     ports:
@@ -68,7 +79,11 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./replication/data1:/data/db
+      # Add scripts folder to initialize the replicaset, exec these from within
+      # the container with mongo < initreplica.js
+      - ./scripts:/scripts:ro
   replica2:
+    container_name: replica2
     image: mongo
     command: mongod --replSet myReplicaSet --dbpath /data/db --port 27017
     ports:
@@ -80,4 +95,12 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./replication/data2:/data/db
+
+# Observations, logging into a replica node with 'mongo' shell, clearly shows
+# the status of the node in the replica set e.g. promt for secondary replica in
+# the set shows like:
+#    myReplicaSet:SECONDARY>
+#
+# vs:
+# myReplicaSet:PRIMARY>
 
