@@ -32,9 +32,14 @@
 #      /    \  
 # [Shard]   [Shard]
 
+# db version v4.0.8
+
 ################################################################################
 # Define Shards: Each shard contains a subset of the sharded data. Each shard can
 # be deployed as a replica set.
+
+# We will build a replica set with these three nodes... 
+# A replica set is a group of mongod instances that maintain the same data set.
 ################################################################################
 version: '2'
 services:
