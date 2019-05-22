@@ -8,6 +8,14 @@
 
 # Config servers: Config servers store metadata and configuration settings for
 # the cluster.
+
+
+#Mongod port defaults
+#    27017 if mongod is not a shard member or a config server member
+#    27018 if mongod is a shard member
+#    27019 if mongod is a config server member
+
+
 version: '2'
 services:
   mongorsn1:
