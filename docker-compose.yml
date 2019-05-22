@@ -1,0 +1,51 @@
+# https://dzone.com/articles/composing-a-sharded-mongodb-on-docker
+
+# Shard: Each shard contains a subset of the sharded data. Each shard can be
+# deployed as a replica set.
+
+# Mongos (router): The mongos acts as query routers, providing an interface
+# between client applications and the sharded cluster.
+
+# Config servers: Config servers store metadata and configuration settings for
+# the cluster.
+version: '2'
+services:
+  mongorsn1:
+    container_name: mongors1n1
+    image: mongo
+    command: mongod --shardsvr --replSet mongors1 --dbpath /data/db --port 27017
+    ports:
+      - 27017:27017
+    expose:
+      - "27017"
+    environment:
+      TERM: xterm
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mongo_cluster/data1:/data/db
+  mongors1n2:
+    container_name: mongors1n2
+    image: mongo
+    command: mongod --shardsvr --replSet mongors1 --dbpath /data/db --port 27017
+    ports:
+      - 27027:27017
+    expose:
+      - "27017"
+    environment:
+      TERM: xterm
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mongo_cluster/data2:/data/db
+  mongors1n3:
+    container_name: mongors1n3
+    image: mongo
+    command: mongod --shardsvr --replSet mongors1 --dbpath /data/db --port 27017
+    ports:
+      - 27037:27017
+    expose:
+      - "27017"
+    environment:
+      TERM: xterm
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mongo_cluster/data3:/data/db
